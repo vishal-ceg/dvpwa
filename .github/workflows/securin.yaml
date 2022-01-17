@@ -5,17 +5,17 @@ name: Securin Scan
 jobs:
   scanning:
     env:
-      APP_ID: e7eaeb8f7097892c78c877202336a5eead0a575e9f8d901c9ca118c52ba1326c
+      APP_ID: 9514aee6a99f17093ad2c54e1bddd3844449117ec217fdc976793bc8c7133224
     steps:
     - name: Access token
       id: access_token
       run: |-
-        token=$( curl --request POST 'http://66ee-103-70-43-178.ngrok.io/resultparserapi/v1/access_token'  --header 'Content-Type: application/json'  --data-raw  '{"userId": "${{ secrets.USER_NAME }}", "password": "${{ secrets.PASSWORD }}" }' | jq -r '.access_token' )
+        token=$( curl --request POST 'http://4489-103-70-43-122.ngrok.io/resultparserapi/v1/access_token'  --header 'Content-Type: application/json'  --data-raw  '{"userId": "${{ secrets.USER_NAME }}", "password": "${{ secrets.PASSWORD }}" }' | jq -r '.access_token' )
         echo "::set-output name=token::$token"
     - name: Retrieve Scan Info
       id: auth_token
       run: |-
-        respJson=$(curl --location --request GET 'http://0471-103-70-43-178.ngrok.io/shiftleftapi/scan-info?app_id=${{ env.APP_ID }}'  --header 'Authorization: Bearer ${{steps.access_token.outputs.token}}'  --data-raw ' ' )
+        respJson=$(curl --location --request GET 'http://8ec8-103-70-43-122.ngrok.io/shiftleftapi/scan-info?app_id=${{ env.APP_ID }}'  --header 'Authorization: Bearer ${{steps.access_token.outputs.token}}'  --data-raw ' ' )
         echo "::set-output name=authTokenJson::$respJson"
     - uses: actions/checkout@v2
     - name: Scan Initiated
